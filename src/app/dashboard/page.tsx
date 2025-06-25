@@ -47,6 +47,9 @@ const dashboardFeatures = [
 ];
 
 export default function Dashboard() {
+  // Calculate active features count dynamically
+  const activeFeaturesCount = dashboardFeatures.filter(feature => feature.status === 'active').length;
+
   return (
     <main className="min-h-screen bg-gray-900 text-white p-8">
       <div className="max-w-6xl mx-auto">
@@ -97,7 +100,7 @@ export default function Dashboard() {
           <h2 className="text-2xl font-bold mb-4">Quick Stats</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-400">2</div>
+              <div className="text-3xl font-bold text-blue-400">{activeFeaturesCount}</div>
               <div className="text-gray-400 text-sm">Active Features</div>
             </div>
             <div className="text-center">
