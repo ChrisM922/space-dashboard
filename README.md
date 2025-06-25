@@ -1,8 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Space Dashboard
+
+A modern web application that provides real-time space data, astronomy information, and celestial discoveries. Built with Next.js, TypeScript, and Tailwind CSS.
+
+## Features
+
+- **Astronomy Picture of the Day (APOD)**: View NASA's daily featured space image with detailed explanations
+- **Near-Earth Objects (NEO)**: Track asteroids and comets that approach Earth's orbit
+- **Real-time Data**: Live updates from NASA APIs
+- **Responsive Design**: Optimized for desktop and mobile devices
+- **Dark Theme**: Space-themed dark interface
+
+## Tech Stack
+
+- **Framework**: Next.js 15.3.4 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: Supabase (for data caching)
+- **APIs**: NASA APIs (APOD, NEO)
+- **Deployment**: Vercel-ready
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm, yarn, pnpm, or bun
+- NASA API key (get one at [api.nasa.gov](https://api.nasa.gov))
+- Supabase account (optional, for data caching)
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd space-dashboard
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+3. Set up environment variables:
+
+```bash
+cp .env.local.example .env.local
+```
+
+Add your environment variables:
+
+```env
+NASA_API_KEY=your_nasa_api_key_here
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+
+# Optional: Supabase for data caching
+SUPABASE_URL=your_supabase_url
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+4. Run the development server:
 
 ```bash
 npm run dev
@@ -14,23 +80,46 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── api/               # API routes
+│   │   ├── apod/         # Astronomy Picture of the Day API
+│   │   └── neo/          # Near-Earth Objects API
+│   ├── apod/             # APOD page
+│   ├── dashboard/        # Main dashboard
+│   ├── neo/              # NEO tracking page
+│   ├── globals.css       # Global styles
+│   ├── layout.tsx        # Root layout
+│   └── page.tsx          # Home page
+└── lib/                  # Utility libraries
+    └── supabase.ts       # Supabase client
+```
 
-## Learn More
+## API Endpoints
 
-To learn more about Next.js, take a look at the following resources:
+- `GET /api/apod` - Fetch today's Astronomy Picture of the Day
+- `GET /api/neo` - Fetch Near-Earth Objects data
+  - Query params: `start` (YYYY-MM-DD), `end` (YYYY-MM-DD)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests and linting
+5. Submit a pull request
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Acknowledgments
+
+- [NASA APIs](https://api.nasa.gov) for providing space data
+- [Next.js](https://nextjs.org) for the amazing framework
+- [Tailwind CSS](https://tailwindcss.com) for the styling system

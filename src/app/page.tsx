@@ -1,10 +1,56 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
-export default function Home() {
+// Default space image for fallback
+const defaultSpaceImage = {
+  src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=800&fit=crop",
+  alt: "Space Nebula",
+};
+
+// Retrieve the APOD image from the route
+async function getAPODImage() {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/apod`, {
+      next: { revalidate: 3600 } // Cache for 1 hour
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch APOD');
+    }
+
+    const apod = await res.json();
+    return {
+      src: apod.url,
+      alt: apod.title,
+    };
+  } catch (error) {
+    // Improved error logging
+    if (error instanceof Error) {
+      console.error('Error fetching APOD:', error.message);
+    } else {
+      console.error('Unknown error fetching APOD:', error);
+    }
+    return defaultSpaceImage;
+  }
+}
+
+export default async function Home() {
+  const spaceImage = await getAPODImage();
+
   return (
     <main className="min-h-screen bg-gray-900 text-white">
       {/* Hero Section */}
-      <section className="relative h-[60vh] flex items-center justify-center text-center p-4">
+      <section className="relative h-[60vh] flex items-center justify-center text-center p-4 overflow-hidden">
+        <Image
+          src={spaceImage.src}
+          alt={spaceImage.alt}
+          fill
+          quality={100}
+          sizes="100vw"
+          className="absolute inset-0 object-cover z-0"
+          priority
+        />
         <div className="absolute inset-0 bg-black opacity-50 z-0"></div>
         <div className="z-10 max-w-4xl mx-auto">
           <h1 className="text-5xl font-bold mb-4">Explore The Cosmos</h1>
