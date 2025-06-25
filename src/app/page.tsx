@@ -1,103 +1,124 @@
-import Image from "next/image";
+import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="min-h-screen bg-gray-900 text-white">
+      {/* Hero Section */}
+      <section className="relative h-[60vh] flex items-center justify-center text-center p-4">
+        <div className="absolute inset-0 bg-black opacity-50 z-0"></div>
+        <div className="z-10 max-w-4xl mx-auto">
+          <h1 className="text-5xl font-bold mb-4">Explore The Cosmos</h1>
+          <p className="text-xl mb-8">Your gateway to real-time space data, astronomy news, and celestial discoveries</p>
+          <Link href="/dashboard" className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-md font-medium transition-colors">
+            Launch Dashboard
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      {/* Features Section */}
+      <section className="max-w-7xl mx-auto py-16 px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Feature Cards */}
+        {spaceFeatures.map((feature, index) => (
+          <div key={index} className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-colors">
+            <h2 className="text-2xl font-bold mb-3">{feature.title}</h2>
+            <p className="mb-4 text-gray-300">{feature.description}</p>
+            <Link href={feature.link} className="text-blue-400 hover:text-blue-300 font-medium">
+              {feature.linkText} →
+            </Link>
+          </div>
+        ))}
+      </section>
+
+      {/* Live Data Section */}
+      <section className="bg-gray-800 py-16 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-6">Live Space Data</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div className="bg-gray-700 p-6 rounded-lg">
+              <p className="text-gray-400 mb-1">ISS Location</p>
+              <p className="text-2xl font-bold">Tracking...</p>
+            </div>
+            <div className="bg-gray-700 p-6 rounded-lg">
+              <p className="text-gray-400 mb-1">Next Launch</p>
+              <p className="text-2xl font-bold">2d 14h 33m</p>
+            </div>
+            <div className="bg-gray-700 p-6 rounded-lg">
+              <p className="text-gray-400 mb-1">Mars Weather</p>
+              <p className="text-2xl font-bold">-63°C</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-16 px-4">
+        <div className="max-w-md mx-auto text-center">
+          <h2 className="text-2xl font-bold mb-4">Stay Updated</h2>
+          <p className="mb-6">Subscribe to our newsletter for the latest space discoveries and mission updates.</p>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <input
+              type="email"
+              placeholder="Your email address"
+              className="px-4 py-2 rounded-md flex-grow text-black"
+            />
+            <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md whitespace-nowrap">
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-gray-800 py-8 px-4 text-center">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-gray-400 mb-4">© {new Date().getFullYear()} Space Dashboard</p>
+          <div className="flex justify-center gap-6">
+            <Link href="/about" className="text-gray-400 hover:text-white">About</Link>
+            <Link href="/api" className="text-gray-400 hover:text-white">API</Link>
+            <Link href="/contact" className="text-gray-400 hover:text-white">Contact</Link>
+          </div>
+        </div>
       </footer>
-    </div>
+    </main>
   );
 }
+
+// Data for feature cards
+const spaceFeatures = [
+  {
+    title: "ISS Tracker",
+    description: "Follow the International Space Station in real-time as it orbits Earth at 17,500 mph.",
+    link: "/iss",
+    linkText: "Track now"
+  },
+  {
+    title: "Mars Rovers",
+    description: "Get the latest images and discoveries from Perseverance, Curiosity and other Mars missions.",
+    link: "/mars",
+    linkText: "See latest findings"
+  },
+  {
+    title: "Launch Schedule",
+    description: "Stay updated with upcoming rocket launches from SpaceX, NASA, and other space agencies.",
+    link: "/launches",
+    linkText: "View calendar"
+  },
+  {
+    title: "Astronomy Picture of the Day",
+    description: "Explore the cosmos through NASA's daily featured image and explanation.",
+    link: "/apod",
+    linkText: "View today's image"
+  },
+  {
+    title: "Space News",
+    description: "Read the latest headlines and developments in space exploration and astronomy.",
+    link: "/news",
+    linkText: "Read news"
+  },
+  {
+    title: "Exoplanet Database",
+    description: "Explore thousands of confirmed planets orbiting other stars beyond our solar system.",
+    link: "/exoplanets",
+    linkText: "Discover exoplanets"
+  }
+];
