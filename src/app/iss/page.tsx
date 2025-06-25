@@ -2,6 +2,20 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+// Dynamically import the map component to avoid SSR issues
+const ISSMap = dynamic(() => import('./ISSMap'), {
+  ssr: false,
+  loading: () => (
+    <div className="bg-gray-700 rounded-lg p-4 h-96 flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto mb-4"></div>
+        <p className="text-gray-400">Loading map...</p>
+      </div>
+    </div>
+  ),
+});
 
 interface ISSPosition {
   latitude: number;
@@ -43,11 +57,32 @@ export default function ISSPage() {
   useEffect(() => {
     fetchISSData();
 
-    // Auto-refresh every 30 seconds
+    // Auto-refresh every 30 seconds for page data
     const interval = setInterval(fetchISSData, 30000);
 
     return () => clearInterval(interval);
   }, []);
+
+  // Separate effect for map data refresh (every 3 seconds)
+  useEffect(() => {
+    if (!issData) return; // Only start map refresh after initial data load
+
+    const mapInterval = setInterval(() => {
+      // Fetch fresh data for map updates
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+      fetch(`${baseUrl}/api/iss`)
+        .then(response => response.json())
+        .then(data => {
+          setIssData(data);
+          setLastUpdate(new Date());
+        })
+        .catch(err => {
+          console.error('Error updating map data:', err);
+        });
+    }, 3000);
+
+    return () => clearInterval(mapInterval);
+  }, [issData]); // Re-run when issData changes
 
   const getISSStatus = () => {
     if (!issData) return 'Unknown';
@@ -138,6 +173,17 @@ export default function ISSPage() {
                 </div>
               </div>
             </div>
+            {/* About ISS Info */}
+            <div className="mt-8 mb-8 bg-gray-800 rounded-lg p-6">
+              <h2 className="text-2xl font-bold mb-4">About the ISS</h2>
+              <p className="text-gray-300 leading-relaxed">
+                The International Space Station (ISS) is a modular space station in low Earth orbit.
+                It is a multinational collaborative project involving five participating space agencies:
+                NASA (United States), Roscosmos (Russia), JAXA (Japan), ESA (Europe), and CSA (Canada).
+                The ISS serves as a microgravity and space environment research laboratory in which scientific
+                research is conducted in astrobiology, astronomy, meteorology, physics, and other fields.
+              </p>
+            </div>
 
             {/* Main Content Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -161,19 +207,8 @@ export default function ISSPage() {
                   </div>
                 </div>
 
-                {/* Simple Map Visualization */}
-                <div className="bg-gray-700 rounded-lg p-4 h-64 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-6xl mb-4">🛰️</div>
-                    <p className="text-gray-400 mb-2">ISS Position</p>
-                    <p className="text-sm text-gray-500">
-                      {issData?.latitude.toFixed(2)}°, {issData?.longitude.toFixed(2)}°
-                    </p>
-                    <p className="text-xs text-gray-600 mt-2">
-                      Map integration coming soon
-                    </p>
-                  </div>
-                </div>
+                {/* Interactive Map */}
+                <ISSMap issData={issData} />
               </div>
 
               {/* Data Section */}
@@ -236,18 +271,6 @@ export default function ISSPage() {
                   </ul>
                 </div>
               </div>
-            </div>
-
-            {/* Additional Info */}
-            <div className="mt-8 bg-gray-800 rounded-lg p-6">
-              <h2 className="text-2xl font-bold mb-4">About the ISS</h2>
-              <p className="text-gray-300 leading-relaxed">
-                The International Space Station (ISS) is a modular space station in low Earth orbit.
-                It is a multinational collaborative project involving five participating space agencies:
-                NASA (United States), Roscosmos (Russia), JAXA (Japan), ESA (Europe), and CSA (Canada).
-                The ISS serves as a microgravity and space environment research laboratory in which scientific
-                research is conducted in astrobiology, astronomy, meteorology, physics, and other fields.
-              </p>
             </div>
           </>
         )}

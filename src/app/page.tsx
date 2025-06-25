@@ -116,14 +116,6 @@ export default async function Home() {
             Launch Dashboard
           </Link>
         </div>
-        {/* APOD overlay info (optional) */}
-        {apod.title && (
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 rounded px-4 py-2 z-10 max-w-xl text-sm text-gray-200">
-            <span className="font-semibold">{apod.title}</span>
-            {apod.date && <span className="ml-2 text-gray-400">({apod.date})</span>}
-            {apod.explanation && <p className="mt-1 text-xs text-gray-300 line-clamp-2">{apod.explanation}</p>}
-          </div>
-        )}
       </section>
 
       {/* Feature Grid */}
