@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -17,7 +17,11 @@ export const metadata: Metadata = {
   description: "Your gateway to real-time space data, astronomy news, and celestial discoveries. Track ISS, view APOD, explore Mars rovers, and more.",
   keywords: ["space", "astronomy", "NASA", "ISS", "APOD", "Mars", "satellites"],
   authors: [{ name: "Space Dashboard Team" }],
-  viewport: "width=device-width, initial-scale=1",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
