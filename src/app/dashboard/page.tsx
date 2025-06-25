@@ -21,7 +21,7 @@ const dashboardFeatures = [
     description: "Follow the International Space Station in real-time as it orbits Earth.",
     link: "/iss",
     icon: "🛰️",
-    status: "coming-soon"
+    status: "active"
   },
   {
     title: "Mars Rovers",

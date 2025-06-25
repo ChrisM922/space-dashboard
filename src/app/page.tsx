@@ -41,7 +41,7 @@ const features = [
     title: 'ISS Tracker',
     description: 'Follow the International Space Station\'s orbit.',
     link: '/iss',
-    available: false,
+    available: true,
   },
   {
     icon: '🚀',
