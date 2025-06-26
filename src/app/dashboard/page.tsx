@@ -25,10 +25,10 @@ const dashboardFeatures = [
   },
   {
     title: "Mars Rovers",
-    description: "Get the latest images and discoveries from Perseverance and Curiosity.",
+    description: "Get the latest images and discoveries from Curiosity, Opportunity, and Spirit.",
     link: "/mars",
     icon: "🚀",
-    status: "coming-soon"
+    status: "active"
   },
   {
     title: "Launch Schedule",

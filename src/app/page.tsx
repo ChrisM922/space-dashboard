@@ -24,15 +24,15 @@ async function getAPODImage() {
 const features = [
   {
     icon: '🌌',
-    title: 'APOD',
-    description: 'See NASA\'s Astronomy Picture of the Day with details.',
+    title: 'Astronomy Picture of the Day',
+    description: 'Explore the cosmos through NASA\'s daily featured image.',
     link: '/apod',
     available: true,
   },
   {
     icon: '☄️',
-    title: 'NEO Tracker',
-    description: 'Track near-Earth asteroids and comets in real time.',
+    title: 'Near-Earth Objects',
+    description: 'Track asteroids and comets that approach Earth\'s orbit.',
     link: '/neo',
     available: true,
   },
@@ -41,6 +41,13 @@ const features = [
     title: 'ISS Tracker',
     description: 'Follow the International Space Station\'s orbit.',
     link: '/iss',
+    available: true,
+  },
+  {
+    icon: '🚀',
+    title: 'Mars Rovers',
+    description: 'Get the latest images and discoveries from Curiosity, Opportunity, and Spirit.',
+    link: '/mars',
     available: true,
   },
   {
