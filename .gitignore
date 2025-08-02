@@ -42,3 +42,12 @@ next-env.d.ts
 
 .vercel
 .env*.local
+
+# Ignore local development files
+.env.local
+
+# Ignore Docker files
+docker-compose.yml
+Dockerfile
+docker-compose.override.yml
+
