@@ -6,7 +6,7 @@ import Link from 'next/link';
 const defaultSpaceImage = {
   src: '/default-space-image.jpg',
   alt: 'Default Space Image',
-  title: 'Default Space Image',
+  title: 'Astronomy Picture of the Day',
   date: '',
   explanation: 'This is a default image used when the APOD data cannot be fetched.',
 };
@@ -17,10 +17,17 @@ async function getAPODImage() {
     const res = await fetch(`${baseUrl}/api/apod`, { next: { revalidate: 3600 } });
     if (!res.ok) throw new Error('Failed to fetch APOD');
     const apod = await res.json();
-    return { src: apod.url, alt: apod.title, title: apod.title, date: apod.date, explanation: apod.explanation, hdurl: apod.hdurl };
+    return {
+      src: apod.url,
+      alt: apod.title,
+      title: apod.title,
+      date: apod.date,
+      explanation: apod.explanation,
+      hdurl: apod.hdurl || '',
+    };
   } catch (error) {
     console.error('Error fetching APOD:', error instanceof Error ? error.message : String(error));
-    return { ...defaultSpaceImage };
+    return { ...defaultSpaceImage, hdurl: '' };
   }
 }
 
