@@ -69,6 +69,18 @@ const nextConfig: NextConfig = {
         hostname: "mars.nasa.gov",
         port: "",
         pathname: "/mer/gallery/**",
+      },
+      {
+        protocol: "http",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
       }
     ]
   },
