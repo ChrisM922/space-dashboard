@@ -35,7 +35,7 @@ export default function ISSPage() {
   const fetchISSData = async () => {
     try {
       setLoading(true);
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3002';
       const response = await fetch(`${baseUrl}/api/iss`);
 
       if (!response.ok) {
