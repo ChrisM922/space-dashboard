@@ -10,7 +10,7 @@ const defaultSpaceImage = {
 // Fetch APOD image for hero background
 async function getAPODImage() {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000' || 'https://discoverspace.christopher-mace.com';
     const res = await fetch(`${baseUrl}/api/apod`, { next: { revalidate: 3600 } });
     if (!res.ok) throw new Error('Failed to fetch APOD');
     const apod = await res.json();
@@ -203,7 +203,7 @@ export default async function Home() {
           <p className="text-gray-400 mb-4">© {new Date().getFullYear()} Space Dashboard</p>
           <div className="flex justify-center gap-6">
             <Link href="/about" className="text-gray-400 hover:text-white" tabIndex={0} aria-label="About">About</Link>
-            <Link href="/api" className="text-gray-400 hover:text-white" tabIndex={0} aria-label="API">API</Link>
+            <Link href="/API" className="text-gray-400 hover:text-white" tabIndex={0} aria-label="API">API</Link>
             <Link href="/contact" className="text-gray-400 hover:text-white" tabIndex={0} aria-label="Contact">Contact</Link>
           </div>
         </div>

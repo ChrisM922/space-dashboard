@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default async function ApodPage() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/apod`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/apod` || 'http://localhost:3002/api/apod' || 'https://discoverspace.christopher-mace.com/api/apod', {
       next: { revalidate: 3600 } // Cache for 1 hour
     })
 
@@ -58,6 +58,10 @@ export default async function ApodPage() {
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl font-bold mb-4">Error Loading APOD</h1>
           <p className="text-gray-400 mb-6">Unable to load today&apos;s Astronomy Picture of the Day.</p>
+          <pre className="bg-gray-800 rounded-lg p-4 text-left overflow-x-auto text-sm mb-4">
+            {JSON.stringify({ error: 'Failed to fetch APOD data' }, null, 2)}
+          </pre>
+          <br />
           <Link href="/dashboard" className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-md font-medium transition-colors">
             Return to Dashboard
           </Link>
