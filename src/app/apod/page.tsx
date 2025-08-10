@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default async function ApodPage() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/apod`, {
+    const res = await fetch('/api/apod', {
       next: { revalidate: 3600 } // Cache for 1 hour
     })
 

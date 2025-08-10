@@ -35,12 +35,7 @@ const ISSMap = dynamic(() => import('./ISSMap'), {
    const fetchISSData = async () => {
      try {
        setLoading(true);
-       const baseUrl =
-         process.env.NEXT_PUBLIC_BASE_URL ||
-         (process.env.NODE_ENV === 'development'
-           ? 'http://localhost:3000'
-           : 'https://discoverspace.christopher-mace.com');
-       const response = await fetch(`${baseUrl}/api/iss`);
+       const response = await fetch('/api/iss');
  
        if (!response.ok) {
          throw new Error('Failed to fetch ISS data');
@@ -73,12 +68,7 @@ const ISSMap = dynamic(() => import('./ISSMap'), {
  
      const mapInterval = setInterval(() => {
        // Fetch fresh data for map updates
-       const baseUrl =
-         process.env.NEXT_PUBLIC_BASE_URL ||
-         (process.env.NODE_ENV === 'development'
-           ? 'http://localhost:3000'
-           : 'https://discoverspace.christopher-mace.com');
-       fetch(`${baseUrl}/api/iss`)
+       fetch('/api/iss')
          .then(response => response.json())
          .then(data => {
            setIssData(data);

@@ -170,8 +170,7 @@ export default function MarsPage() {
 
   const fetchMissionManifest = async (rover: string) => {
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-      const response = await fetch(`${baseUrl}/api/mars/manifest?rover=${rover}`);
+      const response = await fetch(`/api/mars/manifest?rover=${rover}`);
 
       if (!response.ok) {
         return;
@@ -203,8 +202,7 @@ export default function MarsPage() {
       // Add a small delay to help with rate limiting
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-      let url = `${baseUrl}/api/mars?rover=${selectedRover}&earth_date=${selectedDate}`;
+      let url = `/api/mars?rover=${selectedRover}&earth_date=${selectedDate}`;
       if (selectedCamera) {
         url += `&camera=${selectedCamera}`;
       }
@@ -256,8 +254,7 @@ export default function MarsPage() {
   // Fetch all available cameras for the current rover/date (no camera filter)
   const fetchAllAvailableCameras = useCallback(async (rover: string, date: string) => {
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-      const url = `${baseUrl}/api/mars?rover=${rover}&earth_date=${date}`;
+      const url = `/api/mars?rover=${rover}&earth_date=${date}`;
       const response = await fetch(url);
       if (!response.ok) return setAllAvailableCameras([]);
       const data = await response.json();

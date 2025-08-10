@@ -10,12 +10,7 @@ const defaultSpaceImage = {
 // Fetch APOD image for hero background
 async function getAPODImage() {
   try {
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL ||
-      (process.env.NODE_ENV === 'development'
-        ? 'http://localhost:3000'
-        : 'https://discoverspace.christopher-mace.com');
-    const res = await fetch(`${baseUrl}/api/apod`, { next: { revalidate: 3600 } });
+    const res = await fetch('/api/apod', { next: { revalidate: 3600 } });
     if (!res.ok) throw new Error('Failed to fetch APOD');
     const apod = await res.json();
     return { src: apod.url, alt: apod.title, title: apod.title, date: apod.date, explanation: apod.explanation };

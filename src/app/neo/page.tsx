@@ -30,7 +30,7 @@ interface NEOData {
 
 export default async function NEOPage() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/neo`, {
+    const res = await fetch('/api/neo', {
       next: { revalidate: 3600 } // Cache for 1 hour
     })
 
