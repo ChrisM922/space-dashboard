@@ -92,8 +92,6 @@ const ISSMap = dynamic(() => import('./ISSMap'), {
      if (timeDiff < 300) return 'Recent';
      return 'Stale';
    };
- 
-
 
   const getStatusColor = (status: string) => {
     switch (status) {
