@@ -10,90 +10,98 @@ const ISSMap = dynamic(() => import('./ISSMap'), {
   loading: () => (
     <div className="bg-gray-700 rounded-lg p-4 h-96 flex items-center justify-center">
       <div className="text-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto mb-4"></div>
-        <p className="text-gray-400">Loading map...</p>
-      </div>
-    </div>
-  ),
-});
-
-interface ISSPosition {
-  latitude: number;
-  longitude: number;
-  altitude: number;
-  velocity: number;
-  timestamp: number;
-  visibility: string;
-}
-
-export default function ISSPage() {
-  const [issData, setIssData] = useState<ISSPosition | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
-
-  const fetchISSData = async () => {
-    try {
-      setLoading(true);
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3002';
-      const response = await fetch(`${baseUrl}/api/iss`);
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch ISS data');
-      }
-
-      const data = await response.json();
-      setIssData(data);
-      setLastUpdate(new Date());
-      setError(null);
-    } catch (err) {
-      setError('Unable to load ISS data');
-      console.error('Error fetching ISS data:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchISSData();
-
-    // Auto-refresh every 30 seconds for page data
-    const interval = setInterval(fetchISSData, 30000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Separate effect for map data refresh (every 3 seconds)
-  useEffect(() => {
-    if (!issData) return; // Only start map refresh after initial data load
-
-    const mapInterval = setInterval(() => {
-      // Fetch fresh data for map updates
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-      fetch(`${baseUrl}/api/iss`)
-        .then(response => response.json())
-        .then(data => {
-          setIssData(data);
-          setLastUpdate(new Date());
-        })
-        .catch(err => {
-          console.error('Error updating map data:', err);
-        });
-    }, 3000);
-
-    return () => clearInterval(mapInterval);
-  }, [issData]); // Re-run when issData changes
-
-  const getISSStatus = () => {
-    if (!issData) return 'Unknown';
-
-    const now = Date.now() / 1000;
-    const timeDiff = now - issData.timestamp;
-
-    if (timeDiff < 60) return 'Live';
-    if (timeDiff < 300) return 'Recent';
-    return 'Stale';
-  };
+         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto mb-4"></div>
+         <p className="text-gray-400">Loading map...</p>
+       </div>
+     </div>
+   ),
+ });
+ 
+ interface ISSPosition {
+   latitude: number;
+   longitude: number;
+   altitude: number;
+   velocity: number;
+   timestamp: number;
+   visibility: string;
+ }
+ 
+ export default function ISSPage() {
+   const [issData, setIssData] = useState<ISSPosition | null>(null);
+   const [loading, setLoading] = useState(true);
+   const [error, setError] = useState<string | null>(null);
+   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+ 
+   const fetchISSData = async () => {
+     try {
+       setLoading(true);
+       const baseUrl =
+         process.env.NEXT_PUBLIC_BASE_URL ||
+         (process.env.NODE_ENV === 'development'
+           ? 'http://localhost:3000'
+           : 'https://discoverspace.christopher-mace.com');
+       const response = await fetch(`${baseUrl}/api/iss`);
+ 
+       if (!response.ok) {
+         throw new Error('Failed to fetch ISS data');
+       }
+ 
+       const data = await response.json();
+       setIssData(data);
+       setLastUpdate(new Date());
+       setError(null);
+     } catch (err) {
+       setError('Unable to load ISS data');
+       console.error('Error fetching ISS data:', err);
+     } finally {
+       setLoading(false);
+     }
+   };
+ 
+   useEffect(() => {
+     fetchISSData();
+ 
+     // Auto-refresh every 30 seconds for page data
+     const interval = setInterval(fetchISSData, 30000);
+ 
+     return () => clearInterval(interval);
+   }, []);
+ 
+   // Separate effect for map data refresh (every 3 seconds)
+   useEffect(() => {
+     if (!issData) return; // Only start map refresh after initial data load
+ 
+     const mapInterval = setInterval(() => {
+       // Fetch fresh data for map updates
+       const baseUrl =
+         process.env.NEXT_PUBLIC_BASE_URL ||
+         (process.env.NODE_ENV === 'development'
+           ? 'http://localhost:3000'
+           : 'https://discoverspace.christopher-mace.com');
+       fetch(`${baseUrl}/api/iss`)
+         .then(response => response.json())
+         .then(data => {
+           setIssData(data);
+           setLastUpdate(new Date());
+         })
+         .catch(err => {
+           console.error('Error updating map data:', err);
+         });
+     }, 3000);
+ 
+     return () => clearInterval(mapInterval);
+   }, [issData]); // Re-run when issData changes
+ 
+   const getISSStatus = () => {
+     if (!issData) return 'Unknown';
+ 
+     const now = Date.now() / 1000;
+     const timeDiff = now - issData.timestamp;
+ 
+     if (timeDiff < 60) return 'Live';
+     if (timeDiff < 300) return 'Recent';
+     return 'Stale';
+   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
