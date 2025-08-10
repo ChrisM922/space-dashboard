@@ -207,7 +207,7 @@ export default async function Home() {
           <p className="text-gray-400 mb-4">© {new Date().getFullYear()} Space Dashboard</p>
           <div className="flex justify-center gap-6">
             <Link href="/about" className="text-gray-400 hover:text-white" tabIndex={0} aria-label="About">About</Link>
-            <Link href="/api" className="text-gray-400 hover:text-white" tabIndex={0} aria-label="API">API</Link>
+            <Link href="/API" className="text-gray-400 hover:text-white" tabIndex={0} aria-label="API">API</Link>
             <Link href="/contact" className="text-gray-400 hover:text-white" tabIndex={0} aria-label="Contact">Contact</Link>
           </div>
         </div>
