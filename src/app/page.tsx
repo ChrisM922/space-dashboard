@@ -2,28 +2,38 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 // Fallback image if APOD fails
-const defaultSpaceImage = {
+/* const defaultSpaceImage = {
   src: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=800&fit=crop',
   alt: 'Space Nebula',
-};
+}; */
 
 // Fetch APOD image for hero background
-async function getAPODImage() {
+/* async function getAPODImage() {
   try {
+    // Prefer fetching directly from NASA when the API key is available server-side.
+    const NASA_KEY = process.env.NASA_API_KEY;
+    if (NASA_KEY) {
+      const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_KEY}`);
+      if (!res.ok) throw new Error(`NASA API error: ${res.status}`);
+      const apod = await res.json();
+      return { src: apod.url, alt: apod.title, title: apod.title, date: apod.date, explanation: apod.explanation };
+    }
+
+    // Fallback: call the internal API route if no NASA key is present.
     const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL ||
+      process.env.NEXT_PUBLIC_BASE_URL || 'localhost:3000' ||
       (process.env.NODE_ENV === 'development'
         ? 'http://localhost:3000'
         : 'https://discoverspace.christopher-mace.com');
     const res = await fetch(`${baseUrl}/api/apod`, { next: { revalidate: 3600 } });
-    if (!res.ok) throw new Error('Failed to fetch APOD');
+    if (!res.ok) throw new Error(`Internal APOD API error: ${res.status}`);
     const apod = await res.json();
     return { src: apod.url, alt: apod.title, title: apod.title, date: apod.date, explanation: apod.explanation };
   } catch (error) {
     console.error('Error fetching APOD:', error instanceof Error ? error.message : String(error));
     return { ...defaultSpaceImage, title: 'Astronomy Picture of the Day', date: '', explanation: '' };
   }
-}
+} */
 
 const features = [
   {
@@ -99,15 +109,15 @@ const liveData = [
 ];
 
 export default async function Home() {
-  const apod = await getAPODImage();
+  /* const apod = await getAPODImage(); */
 
   return (
     <main className="min-h-screen bg-gray-900 text-white">
       {/* Hero Section */}
       <section className="relative h-[70vh] flex items-center justify-center text-center p-4 overflow-hidden">
         <Image
-          src={apod.src}
-          alt={apod.alt}
+          src='https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=800&fit=crop'
+          alt=/* {apod.alt} */ 'Space Nebula'
           fill
           quality={100}
           sizes="100vw"
@@ -126,8 +136,14 @@ export default async function Home() {
           >
             Launch Dashboard
           </Link>
+        <div className="mt-6">
+          <p>Due to the government shutodown in 2025, NASA has archived some of the API's and they are no longer maintained or have been archived. Alternatives are being explored and integrated where possible.</p>
         </div>
+        </div> 
       </section>
+
+
+       
 
       {/* Feature Grid */}
       <section className="max-w-7xl mx-auto py-16 px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

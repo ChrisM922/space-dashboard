@@ -51,3 +51,5 @@ docker-compose.yml
 Dockerfile
 docker-compose.override.yml
 
+# DB
+*.gz
