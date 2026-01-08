@@ -137,7 +137,7 @@ export default async function Home() {
             Launch Dashboard
           </Link>
         <div className="mt-6">
-          <p>Due to the government shutodown in 2025, NASA has archived some of the API's and they are no longer maintained or have been archived. Alternatives are being explored and integrated where possible.</p>
+          <p>Due to the government shutodown in 2025, NASA has archived some of the API&apos;s and they are no longer maintained or have been archived. Alternatives are being explored and integrated where possible.</p>
         </div>
         </div> 
       </section>
