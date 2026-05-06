@@ -24,13 +24,6 @@ const dashboardFeatures = [
     status: "active"
   },
   {
-    title: "Mars Rovers",
-    description: "Get the latest images and discoveries from Curiosity, Opportunity, and Spirit.",
-    link: "/mars",
-    icon: "🚀",
-    status: "active"
-  },
-  {
     title: "Launch Schedule",
     description: "Stay updated with upcoming rocket launches from space agencies worldwide.",
     link: "/launches",

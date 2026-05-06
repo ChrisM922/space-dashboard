@@ -59,13 +59,6 @@ const features = [
   },
   {
     icon: '🚀',
-    title: 'Mars Rovers',
-    description: 'Get the latest images and discoveries from Curiosity, Opportunity, and Spirit.',
-    link: '/mars',
-    available: true,
-  },
-  {
-    icon: '🚀',
     title: 'Launches',
     description: 'Upcoming rocket launches from around the world.',
     link: '/launches',
@@ -99,12 +92,6 @@ const liveData = [
     value: '2d 14h 33m',
     color: 'text-green-400',
     aria: 'Time until next rocket launch',
-  },
-  {
-    label: 'Mars Weather',
-    value: '-63°C',
-    color: 'text-red-400',
-    aria: 'Current weather on Mars',
   },
 ];
 

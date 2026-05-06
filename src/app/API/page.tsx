@@ -14,7 +14,6 @@ export default function APIOverview() {
             <li><strong>/api/apod</strong> — Get NASA&apos;s Astronomy Picture of the Day (APOD)</li>
             <li><strong>/api/neo</strong> — Near-Earth Object tracking data</li>
             <li><strong>/api/iss</strong> — Live International Space Station location</li>
-            <li><strong>/api/mars</strong> — Latest Mars rover images and discoveries</li>
             <li><strong>/api/launches</strong> — Upcoming rocket launches</li>
             <li><strong>/api/news</strong> — Space news headlines (coming soon)</li>
             <li><strong>/api/exoplanets</strong> — Exoplanet discoveries (coming soon)</li>
